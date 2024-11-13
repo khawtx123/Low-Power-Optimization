@@ -24,7 +24,7 @@ begin
 		if (counter == 0) begin
 		 	DataMark <= 1;
  			counter <= counter + 1;
- 		end else	if (counter == 1) begin
+ 		end else if (counter == 1) begin
 			B <= 0;
 			if (Start==1) begin
 				B[7]<=1;

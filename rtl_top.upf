@@ -1,10 +1,10 @@
 upf_version 2.0
-set scope /adc_tester/dut
+set_scope /adc_tester/dut
 
 # Create Power domains 
 create_power_domain PD_TOP
 create_power_domain PD_ADC -elements {ADCCtrl_inst}
-create_power_domain PD_OUT -elements {LoadReg DataMark SerialOutput B_reg}
+create_power_domain PD_OUT -elements {B_reg}
 
 # Create Supply Ports
 create_supply_port MAIN_PWR_low
@@ -82,10 +82,10 @@ create_power_switch OUT_RET_sw \
 
 # Adding power states of power domains primary supplies
 add_power_state PD_TOP.primary -state  PD_TB_always_on { -supply_expr {(power == {FULL_ON,5.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL}
-add_power_state PD_ALU.primary -state  PD_ADC_low_volt { -supply_expr {(power == {FULL_ON,3.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
-add_power_state PD_ALU.primary -state  PD_ADC_moderate_volt { -supply_expr {(power == {FULL_ON,5.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
-add_power_state PD_ALU.primary -state  PD_ADC_high_volt { -supply_expr {(power == {FULL_ON,7.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
-add_power_state PD_ALU.primary -state  PD_ADC_off { -supply_expr {(power == {OFF}) && (ground == {FULL_ON,0.0}) } -logic_expr {!ADC_PWR_low && !ADC_PWR_high && !ADC_PWR_moderate } -simstate CORRUPT }
+add_power_state PD_ADC.primary -state  PD_ADC_low_volt { -supply_expr {(power == {FULL_ON,3.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
+add_power_state PD_ADC.primary -state  PD_ADC_moderate_volt { -supply_expr {(power == {FULL_ON,5.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
+add_power_state PD_ADC.primary -state  PD_ADC_high_volt { -supply_expr {(power == {FULL_ON,7.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
+add_power_state PD_ADC.primary -state  PD_ADC_off { -supply_expr {(power == {OFF}) && (ground == {FULL_ON,0.0}) } -logic_expr {!ADC_PWR_low && !ADC_PWR_high && !ADC_PWR_moderate } -simstate CORRUPT }
 add_power_state PD_OUT.primary -state  PD_OUT_on { -supply_expr {(power == {FULL_ON,5.0}) && (ground == {FULL_ON,0.0}) } -simstate NORMAL }
 add_power_state PD_OUT.primary -state  PD_OUT_off { -supply_expr {(power == {OFF}) && (ground == {FULL_ON,0.0}) } -logic_expr {!OUT_PWR} -simstate CORRUPT }
 
